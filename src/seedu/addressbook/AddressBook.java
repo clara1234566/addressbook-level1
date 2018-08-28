@@ -486,10 +486,18 @@ public class AddressBook {
         final ArrayList<String[]> matchedPersons = new ArrayList<>();
         for (String[] person : getAllPersonsInAddressBook()) {
             final Set<String> wordsInName = new HashSet<>(splitByWhitespace(getNameFromPerson(person)));
-            if (!Collections.disjoint(wordsInName, keywords)) {
-                matchedPersons.add(person);
+            boolean yeah=false;
+                for (String key : keywords) {
+                    for (String name : wordsInName) {
+                        if (key.equalsIgnoreCase(name)) {
+                            yeah=true;
+                        }
+                    }
+                }
+                if(yeah)
+                 matchedPersons.add(person);
             }
-        }
+
         return matchedPersons;
     }
 
